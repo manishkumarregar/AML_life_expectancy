@@ -1,0 +1,1 @@
+import skfuzzy as fuzz
