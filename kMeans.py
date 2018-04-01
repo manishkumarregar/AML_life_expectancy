@@ -11,9 +11,10 @@ import numpy as np
 # Initialize the model with 2 parameters -- number of clusters and random state.
 kmeans_model = KMeans(n_clusters=8, random_state=1, n_init=10)
 # Get only the numeric columns from games.
-good_columns, days_to_death = load_data()
+X, days_to_death = load_data()
+print(type(days_to_death[0]))
 # Fit the model using the good columns.
-kmeans_model.fit(good_columns)
+kmeans_model.fit(X)
 # Get the cluster assignments.
 labels = kmeans_model.labels_
 # print(labels)
@@ -24,7 +25,7 @@ print(clusters)
 # Create a PCA model.
 pca_2 = PCA(2)
 # Fit the PCA model on the numeric columns from earlier.
-plot_columns = pca_2.fit_transform(good_columns)
+plot_columns = pca_2.fit_transform(X)
 # Make a scatter plot of each game, shaded according to cluster assignment.
 # plt.scatter(x=plot_columns[:,0], y=plot_columns[:,1], c=labels)
 # print(days_to_death.shape)

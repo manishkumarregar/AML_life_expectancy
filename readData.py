@@ -1,5 +1,5 @@
 from pandas import read_csv
-from pandas import isnull
+from pandas import isnull, to_numeric
 from sklearn import preprocessing as pp
 import numpy as np
 
@@ -10,7 +10,7 @@ def load_data():
 
 	patient_ids1 = [x.lower() for x in patient_data.iloc[0]]
 	patient_ids2 = [x.lower() for x in gene_data.iloc[0]]
-	
+
 	index = []
 	for i in range(len(patient_ids2)):
 		for j in range(len(patient_ids1)):
@@ -29,7 +29,8 @@ def load_data():
 	gene_data.drop(gene_data.index[0], inplace=True)
 
 	X = gene_data.iloc[:, 1:]
-	return np.array(X.T), np.array(days_to_death)
+	X = np.array(X.T)
+	return X.astype(float), np.array(days_to_death).astype(float)
 
 def laod_data_live():
 	"""read data from csv file and preprocess"""
@@ -37,7 +38,7 @@ def laod_data_live():
 	gene_data = read_csv('HiSeqV2.csv', header=None,sep="\t")
 	patient_ids1 = [x.lower() for x in patient_data.iloc[0]]
 	patient_ids2 = [x.lower() for x in gene_data.iloc[0]]
-	
+
 	index = []
 	for i in range(len(patient_ids2)):
 		for j in range(len(patient_ids1)):
