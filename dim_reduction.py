@@ -3,8 +3,8 @@ from sklearn.decomposition import NMF
 from readData import load_data
 import matplotlib.pyplot as plt
 
-def reduce_dim(X,num_features):
-	
+def reduce_dim(X):
+	num_features = int(input('Enter new dimension for gene data:'))
 	model = NMF(n_components=num_features, init='random', random_state=0)
 	reduced_X = model.fit_transform(X)
 	# # print(reduced_X)
