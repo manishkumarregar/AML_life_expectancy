@@ -1,6 +1,7 @@
 import skfuzzy as fuzz
 from readData import load_data
-from saveResults import COLORS
+from saveResults import COLORS, plot1
+from dim_reduction import plotable
 # Import the PCA model.
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
@@ -26,24 +27,26 @@ def cluster(X,fig,ax):
     # Show 3-cluster model
     ax.set_title('Trained model')
 
-    pca_2 = PCA(2)
+    # pca_2 = PCA(2)
     X =X.T
     # Fit the PCA model on the numeric columns from earlier.
-    plot_columns = pca_2.fit_transform(X)
+    # plot_columns = pca_2.fit_transform(X)
+    plot_columns = plotable(X)
+    plot_centers = plotable(cntr)
     # Plot assigned clusters, for each data point in training set
     cluster_membership = np.argmax(u_orig, axis=0)
     # print(cluster_membership)
     clusters = {i: np.where(cluster_membership == i)[0] for i in range(num_cluster)}
     print(clusters)
-    for j in range(num_cluster):
-        ax.plot(plot_columns[clusters[j],0],
-                 plot_columns[clusters[j],1], 'o',
-                 label='series ' + str(j), color=COLORS[j])
-    # Mark the center of each fuzzy cluster
-    # plot_centers = pca_2.fit_transform(cntr)
+    plot1(num_cluster, cluster_membership, plot_columns, plot_centers, ax)
+    # for j in range(num_cluster):
+    #     ax.plot(plot_columns[clusters[j],0],
+    #              plot_columns[clusters[j],1], 'o',
+    #              label='series ' + str(j), color=COLORS[j])
+    # # Mark the center of each fuzzy cluster
     # print(plot_centers)
     # for pt in plot_centers:
     #     ax.plot(pt[0], pt[1], 'rs')
-    ax.legend()
+    # ax.legend()
 
-    return cluster_membership
+    return cluster_membership, num_cluster
