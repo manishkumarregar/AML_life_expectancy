@@ -22,9 +22,9 @@ clustering_algo = {
 
 choice = input("Choose the clustering algo:")
 algo = clustering_algo[int(choice)]
-fig,ax = plt.subplots()
+fig,ax = plt.subplots(3)
 # clustering_algo[int(choice)].clustering_algo[int(choice)](X)
-labels = algo.cluster(X,fig,ax)
+labels = algo.cluster(X,fig,ax[0])
 # print(labels)
 # print(len(labels))
 
@@ -57,5 +57,7 @@ plt.figtext(0.5, -0.07, fig_txt, horizontalalignment='center',
 
 # plt.show()
 
+# ax[2].set_visible(False)
+hazard_func(clusters,days_to_death,death_observed,ax[1])
+survival_func(clusters,days_to_death,death_observed,ax[2])
 save_fig(algo.__name__ + '.py',fig)
-hazard_func(clusters,days_to_death,death_observed)

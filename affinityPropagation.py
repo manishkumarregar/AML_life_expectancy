@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from itertools import cycle
 from readData import load_data
 from dim_reduction import reduce_dim
-from saveResults import save_fig
+from saveResults import save_fig,COLORS
 # Make Dummy Data
 # centers = [[1, 1], [-1, -1], [1, -1]]
 # X, labels_true = make_blobs(n_samples=300, centers=centers, cluster_std=0.5, random_state=0)
@@ -30,11 +30,12 @@ def cluster(X,fig,ax):
     # plt.figure(1)
     # plt.clf()
 
-    colors = cycle('bgrcmykbgrcmykbgrcmykbgrcmyk')
+    # colors = cycle('bgrcmykbgrcmykbgrcmykbgrcmyk')
+    colors = COLORS
     for k, col in zip(range(no_clusters), colors):
         class_members = labels == k
         cluster_center = X[cluster_centers_indices[k]]
-        ax.plot(X[class_members, 0], X[class_members, 1], col + '.')
+        ax.plot(X[class_members, 0], X[class_members, 1], '.', color=col)
         ax.plot(cluster_center[0], cluster_center[1], 'o', markerfacecolor=col, markeredgecolor='k', markersize=14)
         for x in X[class_members]:
             ax.plot([cluster_center[0], x[0]], [cluster_center[1], x[1]], col)

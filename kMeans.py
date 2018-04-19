@@ -1,5 +1,5 @@
 import os
-from saveResults import save_fig
+from saveResults import save_fig,COLORS
 # Import the kmeans clustering model.
 from sklearn.cluster import KMeans,MiniBatchKMeans
 from readData import load_data
@@ -32,7 +32,9 @@ def cluster(X,fig,ax):
 	# print(clusters)
 	choice = input("Want to apply PCA(0/1):")
 	if choice == '0':
-		ax.scatter(x=X[:,0], y=X[:,1], c=labels)
+		for i in range(num_clusters):
+			ax.scatter(x=X[clusters[i],0], y=X[clusters[i],1], c=COLORS[i])
+
 		# plt.show()
 	else:
 		# Create a PCA model.
@@ -40,7 +42,9 @@ def cluster(X,fig,ax):
 		# Fit the PCA model on the numeric columns from earlier.
 		plot_columns = pca_2.fit_transform(X)
 		# Make a scatter plot of each game, shaded according to cluster assignment.
-		ax.scatter(x=plot_columns[:,0], y=plot_columns[:,1], c=labels)
+		for i in range(num_clusters):
+			ax.scatter(x=plot_columns[clusters[i],0], y=plot_columns[clusters[i],1], c=COLORS[i])
+
 		# print(days_to_death.shape)
 		# plt.scatter(x=[i for i in range(len(clusters[0]))], y=days_to_death[clusters[0]])
 		# Show the plot.

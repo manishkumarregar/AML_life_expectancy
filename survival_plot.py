@@ -3,9 +3,10 @@ from lifelines import AalenAdditiveFitter
 import matplotlib.pyplot as plt
 import pandas as pd
 
-def survival_func(clusters,days_to_death,death_observed):
+from saveResults import COLORS
+
+def survival_func(clusters,days_to_death,death_observed,ax):
     model = KaplanMeierFitter()
-    ax = ''
     # print(len(days_to_death),len(death_observed))
     # print(clusters[0])
     # print(days_to_death[clusters[0]])
@@ -15,18 +16,15 @@ def survival_func(clusters,days_to_death,death_observed):
         if len(clusters[i]) :
             print(clusters[i])
             model.fit(days_to_death[clusters[i]], event_observed=death_observed[clusters[i]], label='KM_estimate for cluster:'+str(i))
-            if i == 0:
-                ax = model.survival_function_.plot()
-            else:
-                model.survival_function_.plot(ax=ax)
+            # if i == 0:
+                # ax = model.survival_function_.plot()
+            # else:
+            model.survival_function_.plot(ax=ax,color=COLORS[i])
             print('Done for cluster ',i)
-    plt.title('Survival function of cluster');
+    ax.set_title('Survival function of cluster');
 
-    plt.show()
-
-def hazard_func(clusters,days_to_death,death_observed):
+def hazard_func(clusters,days_to_death,death_observed,ax):
     model = AalenAdditiveFitter(coef_penalizer=1.0, fit_intercept=True)
-    ax = ''
     # print(len(days_to_death),len(death_observed))
     # print(clusters[0])
     # print(days_to_death[clusters[0]])
@@ -39,11 +37,9 @@ def hazard_func(clusters,days_to_death,death_observed):
             X['death_observed'] = death_observed[clusters[i]]
             X = pd.DataFrame(X)
             model.fit(X, 'days_to_death', event_col='death_observed')
-            if i == 0:
-                ax = model.plot()
-            else:
-                model.plot(ax=ax)
+            # if i == 0:
+                # ax = model.plot()
+            # else:
+            model.plot(ax=ax,color=COLORS[i])
             print('Done for cluster ',i)
-    plt.title('Cumulatice hazard of cluster');
-
-    plt.show()
+    ax.set_title('Cumulatice hazard of cluster');

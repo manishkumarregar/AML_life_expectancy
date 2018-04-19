@@ -1,5 +1,6 @@
 import skfuzzy as fuzz
 from readData import load_data
+from saveResults import COLORS
 # Import the PCA model.
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
@@ -37,7 +38,7 @@ def cluster(X,fig,ax):
     for j in range(num_cluster):
         ax.plot(plot_columns[clusters[j],0],
                  plot_columns[clusters[j],1], 'o',
-                 label='series ' + str(j))
+                 label='series ' + str(j), color=COLORS[j])
     # Mark the center of each fuzzy cluster
     # plot_centers = pca_2.fit_transform(cntr)
     # print(plot_centers)
