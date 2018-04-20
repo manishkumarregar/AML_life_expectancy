@@ -37,6 +37,6 @@ def cluster(X,fig,ax):
 	# for i in range(num_clusters):
 		# ax.scatter(x=plot_columns[clusters[i],0], y=plot_columns[clusters[i],1], c=COLORS[i])
 
-	plot1(num_clusters,labels,plot_columns,centers,ax,scatter=False)
+	plot1(num_clusters,labels,plot_columns,centers,ax)
 
 	return labels, num_clusters

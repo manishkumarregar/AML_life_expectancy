@@ -12,6 +12,8 @@ COLORS = ['crimson', 'indigo', 'chartreuse', 'olive', 'aqua',
         'white', 'orange', 'khaki', 'lavender', 'aquamarine', 'red',
         'green', 'lime', 'lightgreen', 'grey', 'wheat', 'turquoise',
         'beige', 'chocolate', 'yellowgreen', 'sienna', 'plum', 'teal']
+
+scatter = True
 # COLORS = ['b', 'g', 'r', 'c', 'm', y', 'k', '']
 def save_fig(algo,fig):
     foldername = algo.split('.')[0]
@@ -24,7 +26,8 @@ def save_fig(algo,fig):
     fig.set_size_inches( (DefaultSize[0]*2, DefaultSize[1]*2) )
     fig.savefig(foldername + t + '.png',bbox_inches='tight')
 
-def plot1(num_clusters,labels,X,centers,ax,scatter=False):
+def plot1(num_clusters,labels,X,centers,ax):
+    scatter = int(input("Want to join cluster center and it's members(0/1):"))
     for k, col in zip(range(num_clusters), COLORS):
         class_members = labels == k
         ax.plot(X[class_members, 0], X[class_members, 1], '.', color=col)
