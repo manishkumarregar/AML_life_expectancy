@@ -16,7 +16,7 @@ def survival_func(clusters,days_to_death,death_observed,ax):
             print(clusters[i])
             label = 'cluster'+str(i+1) + '(' + str(len(clusters[i])) + ')'
             model.fit(days_to_death[clusters[i]], event_observed=death_observed[clusters[i]], label=label)
-            model.survival_function_.plot(marker='.',ax=ax,color=COLORS[i%len(COLORS)])
+            model.survival_function_.plot(ax=ax,color=COLORS[i%len(COLORS)])
             print('Done for cluster ',i)
 
             df = model.survival_function_
@@ -48,7 +48,7 @@ def survival_func(clusters,days_to_death,death_observed,ax):
                 possible_grps.append(days_half_prob/2)
             else:
                 possible_grps.append(days_half_prob)
-                
+
 
             # if less_indices.size > 0:
             #     days_half_prob += x[less_indices[0,0]]
@@ -70,7 +70,7 @@ def survival_func(clusters,days_to_death,death_observed,ax):
             #     possible_grps.append(days_half_prob)
 
             # print(days_half_prob)
-            
+
             # print(np.interp(0.5, x, y))
 
     ax.set_title('Survival function of cluster')

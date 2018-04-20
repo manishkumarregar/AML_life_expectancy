@@ -13,7 +13,7 @@ COLORS = ['crimson', 'indigo', 'chartreuse', 'olive', 'aqua',
         'green', 'lime', 'lightgreen', 'grey', 'wheat', 'turquoise',
         'beige', 'chocolate', 'yellowgreen', 'sienna', 'plum', 'teal']
 
-scatter = True
+scatter = False
 # COLORS = ['b', 'g', 'r', 'c', 'm', y', 'k', '']
 def save_fig(algo,fig):
     foldername = algo.split('.')[0]
@@ -24,10 +24,12 @@ def save_fig(algo,fig):
     DPI = fig.get_dpi()
     DefaultSize = fig.get_size_inches()
     fig.set_size_inches( (DefaultSize[0]*2, DefaultSize[1]*2) )
+    # fig.set_size_inches( (3.448819, 2.614173) )
+
     fig.savefig(foldername + t + '.png',bbox_inches='tight')
 
 def plot1(num_clusters,labels,X,centers,ax):
-    scatter = int(input("Want to join cluster center and it's members(0/1):"))
+    # scatter = int(input("Want to join cluster center and it's members(0/1):"))
     for k, col in zip(range(num_clusters), COLORS):
         class_members = labels == k
         ax.plot(X[class_members, 0], X[class_members, 1], '.', color=col)

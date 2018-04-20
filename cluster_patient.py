@@ -37,8 +37,13 @@ for i in range(len(labels)):
     clusters[labels[i]].append(i)
 
 # hazard_func(clusters,days_to_death,death_observed,ax[1])
-possible_grps = survival_func(clusters,days_to_death,death_observed,ax[1])
-actual_grp = get_grps(possible_grps)
+fig2, ax2 = plt.subplots()
+possible_grps = survival_func(clusters,days_to_death,death_observed,ax2)
+survival_grp = get_grps(possible_grps)
+actual_grp = len(survival_grp)
+useful = ''
+if actual_grp > 2:
+    useful = 'Good/'
 # plt.hist(possible_grps, 200, normed=1, histtype='stepfilled', facecolor='g', alpha=0.75)#, rwidth=0.25)
 
 # x = possible_grps# [1,1,5,6,1,5,10,22,23,23,50,51,51,52,100,112,130,500,512,600,12000,12230]
@@ -51,7 +56,7 @@ actual_grp = get_grps(possible_grps)
 msg = 'Clustering Algo: ' + algo.__name__ + ', \n'
 msg += 'Number of Clusters: ' + str(num_clusters) + ', \n'
 msg += 'Number of Features: ' + str(X.shape[1]) + ' \n'
-msg += 'Number of Groups: ' + str(actual_grp)
+msg += 'Number of Groups: ' + str(survival_grp)
 
 # for i in range(num_clusters):
     # msg += 'Cluster ' + str(i) + 'contains ' + str(len(clusters[i])) + 'patients\n'
@@ -60,10 +65,11 @@ fig_txt = tw.fill(tw.dedent(msg.rstrip() ), width=80)
 
 # The YAxis value is -0.07 to push the text down slightly
 plt.figtext(0.5, -0.07, fig_txt, horizontalalignment='center',
-            fontsize=12, multialignment='left',
+            multialignment='left',
             bbox=dict(boxstyle="round", facecolor='#D8D8D8',
                       ec="0.5", pad=0.5, alpha=1), fontweight='bold')
 
-
-save_fig(algo.__name__ + '.py',fig)
+save_fig(algo.__name__ + '.py',fig2)
+if actual_grp > 2:
+    save_fig(useful + algo.__name__ + '.py',fig2)
 # plt.show()
