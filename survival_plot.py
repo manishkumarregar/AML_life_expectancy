@@ -46,7 +46,7 @@ def survival_func(clusters,days_to_death,death_observed,ax):
             print(less,more)
             if less and more:
                 possible_grps.append(days_half_prob/2)
-            else:
+            elif less or more:
                 possible_grps.append(days_half_prob)
 
 

@@ -13,8 +13,8 @@ from findGroups import get_grps
 
 # Get only the numeric columns from games.
 X, days_to_death, death_observed = load_data()
-choice = input('Want to reduce dimension(yes/no):')
-if choice == 'yes':
+choice = int(input('Want to reduce dimension(0/1):'))
+if choice == 1:
     X = reduce_dim(X)
 
 clustering_algo = {
@@ -69,7 +69,7 @@ plt.figtext(0.5, -0.07, fig_txt, horizontalalignment='center',
             bbox=dict(boxstyle="round", facecolor='#D8D8D8',
                       ec="0.5", pad=0.5, alpha=1), fontweight='bold')
 
-save_fig(algo.__name__ + '.py',fig2)
 if actual_grp > 2:
     save_fig(useful + algo.__name__ + '.py',fig2)
 # plt.show()
+save_fig(algo.__name__ + '.py',fig2)
