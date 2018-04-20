@@ -55,6 +55,8 @@ def survival_func(clusters,days_to_death,death_observed,ax):
             # print(np.interp(0.5, x, y))
 
     ax.set_title('Survival function of cluster')
+    xmin,xmax = ax.get_xlim()
+    ax.axhline(y=0.5,linestyle='-',color='k',xmin=xmin,xmax=xmax)
     return possible_grps
 
 def hazard_func(clusters,days_to_death,death_observed,ax):
