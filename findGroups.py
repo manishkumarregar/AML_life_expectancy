@@ -45,6 +45,7 @@ def get_grps(possible_grps):
 	print("*******")
 	print('Number of Groups: ',len(clusters))
 	print("*******")
+	return len(clusters)
 
 if __name__ == '__main__':
 	get_grps([])

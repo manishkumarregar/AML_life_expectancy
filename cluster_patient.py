@@ -36,9 +36,23 @@ for i in range(num_clusters):
 for i in range(len(labels)):
     clusters[labels[i]].append(i)
 
+# hazard_func(clusters,days_to_death,death_observed,ax[1])
+possible_grps = survival_func(clusters,days_to_death,death_observed,ax[1])
+actual_grp = get_grps(possible_grps)
+# plt.hist(possible_grps, 200, normed=1, histtype='stepfilled', facecolor='g', alpha=0.75)#, rwidth=0.25)
+
+# x = possible_grps# [1,1,5,6,1,5,10,22,23,23,50,51,51,52,100,112,130,500,512,600,12000,12230]
+
+# Y = np.array(list(zip(x,np.zeros(len(x)))), dtype=np.int)
+# clu, num = affinityPropagation.cluster(Y,fig,ax[2])
+# print(clu, num)
+
+
 msg = 'Clustering Algo: ' + algo.__name__ + ', \n'
-msg += 'Number of clusters: ' + str(num_clusters) + ', \n'
-msg += 'Number of Features: ' + str(X.shape[1])
+msg += 'Number of Clusters: ' + str(num_clusters) + ', \n'
+msg += 'Number of Features: ' + str(X.shape[1]) + ' \n'
+msg += 'Number of Groups: ' + str(actual_grp)
+
 # for i in range(num_clusters):
     # msg += 'Cluster ' + str(i) + 'contains ' + str(len(clusters[i])) + 'patients\n'
 bbox_props = dict(boxstyle="round", fc="w", ec="0.5", alpha=0.9)
@@ -51,15 +65,5 @@ plt.figtext(0.5, -0.07, fig_txt, horizontalalignment='center',
                       ec="0.5", pad=0.5, alpha=1), fontweight='bold')
 
 
-# hazard_func(clusters,days_to_death,death_observed,ax[1])
-possible_grps = survival_func(clusters,days_to_death,death_observed,ax[1])
-get_grps(possible_grps)
-# plt.hist(possible_grps, 200, normed=1, histtype='stepfilled', facecolor='g', alpha=0.75)#, rwidth=0.25)
-
-# x = possible_grps# [1,1,5,6,1,5,10,22,23,23,50,51,51,52,100,112,130,500,512,600,12000,12230]
-
-# Y = np.array(list(zip(x,np.zeros(len(x)))), dtype=np.int)
-# clu, num = affinityPropagation.cluster(Y,fig,ax[2])
-# print(clu, num)
 save_fig(algo.__name__ + '.py',fig)
 # plt.show()

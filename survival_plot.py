@@ -31,24 +31,43 @@ def survival_func(clusters,days_to_death,death_observed,ax):
 
             days_half_prob = 0
             count = 0
+            less = False
+            more = False
             if less_indices.size > 0:
-                days_half_prob += x[less_indices[0,0]]
-                count += 1
+                print(x[less_indices[0,0]])
+                if abs(y[less_indices[0,0]]-0.5) < 0.1:
+                    days_half_prob += x[less_indices[0,0]]
+                    less = True
             if more_indices.size > 0:
-                days_half_prob += x[more_indices[-1,-1]]
-                count += 1
-            if count == 1:
-                if less_indices.size >0:
-                    if abs(x[less_indices[0,0]]-0.5) < 0.05:
-                        days_half_prob /= count
-                        possible_grps.append(days_half_prob)
-                else:
-                    if abs(x[more_indices[-1,-1]]-0.5) < 0.05:
-                        days_half_prob /= count
-                        possible_grps.append(days_half_prob)
-            elif count == 2:
-                days_half_prob /= count
+                print(x[more_indices[-1,-1]])
+                if abs(y[more_indices[-1,-1]]-0.5) < 0.1:
+                    days_half_prob += x[more_indices[-1,-1]]
+                    more = True
+            print(less,more)
+            if less and more:
+                possible_grps.append(days_half_prob/2)
+            else:
                 possible_grps.append(days_half_prob)
+                
+
+            # if less_indices.size > 0:
+            #     days_half_prob += x[less_indices[0,0]]
+            #     count += 1
+            # if more_indices.size > 0:
+            #     days_half_prob += x[more_indices[-1,-1]]
+            #     count += 1
+            # if count == 1:
+            #     if less_indices.size >0:
+            #         if abs(x[less_indices[0,0]]-0.5) < 0.05:
+            #             days_half_prob /= count
+            #             possible_grps.append(days_half_prob)
+            #     else:
+            #         if abs(x[more_indices[-1,-1]]-0.5) < 0.05:
+            #             days_half_prob /= count
+            #             possible_grps.append(days_half_prob)
+            # elif count == 2:
+            #     days_half_prob /= count
+            #     possible_grps.append(days_half_prob)
 
             # print(days_half_prob)
             
