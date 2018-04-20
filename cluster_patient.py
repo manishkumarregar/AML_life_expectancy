@@ -5,7 +5,7 @@ import textwrap as tw
 from readData import load_data
 from saveResults import save_fig
 from dim_reduction import reduce_dim
-import kMeans, fuzzyCMeans, affinityPropagation
+import kMeans, fuzzyCMeans, affinityPropagation, hirarAgglomerative
 from survival_plot import survival_func,hazard_func
 
 # Get only the numeric columns from games.
@@ -17,7 +17,8 @@ if choice == 'yes':
 clustering_algo = {
     1 : kMeans,
     2 : fuzzyCMeans,
-    3 : affinityPropagation
+    3 : affinityPropagation,
+    4 : hirarAgglomerative
 }
 
 choice = input("Choose the clustering algo:")
