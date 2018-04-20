@@ -1,12 +1,15 @@
 
 import matplotlib.pyplot as plt
 import textwrap as tw
+import numpy as np
 
 from readData import load_data
 from saveResults import save_fig
 from dim_reduction import reduce_dim
 import kMeans, fuzzyCMeans, affinityPropagation, hirarAgglomerative
 from survival_plot import survival_func,hazard_func
+from findGroups import get_grps
+
 
 # Get only the numeric columns from games.
 X, days_to_death, death_observed = load_data()
@@ -49,5 +52,14 @@ plt.figtext(0.5, -0.07, fig_txt, horizontalalignment='center',
 
 
 # hazard_func(clusters,days_to_death,death_observed,ax[1])
-survival_func(clusters,days_to_death,death_observed,ax[1])
+possible_grps = survival_func(clusters,days_to_death,death_observed,ax[1])
+get_grps(possible_grps)
+# plt.hist(possible_grps, 200, normed=1, histtype='stepfilled', facecolor='g', alpha=0.75)#, rwidth=0.25)
+
+# x = possible_grps# [1,1,5,6,1,5,10,22,23,23,50,51,51,52,100,112,130,500,512,600,12000,12230]
+
+# Y = np.array(list(zip(x,np.zeros(len(x)))), dtype=np.int)
+# clu, num = affinityPropagation.cluster(Y,fig,ax[2])
+# print(clu, num)
 save_fig(algo.__name__ + '.py',fig)
+# plt.show()
