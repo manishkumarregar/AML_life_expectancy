@@ -74,6 +74,7 @@ plt.figtext(0.5, -0.07, fig_txt, horizontalalignment='center',
 
 t = ctime()
 save_fig(algo.__name__ + 'clusters.py',fig,t)
+save_fig(algo.__name__ + '_survival_func.py',fig2,t)
 
 if actual_grp > 2:
     save_fig(useful + algo.__name__ + '.py',fig2,t)
