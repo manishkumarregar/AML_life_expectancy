@@ -13,21 +13,24 @@ COLORS = ['crimson', 'indigo', 'chartreuse', 'olive', 'aqua',
         'green', 'lime', 'lightgreen', 'grey', 'wheat', 'turquoise',
         'beige', 'chocolate', 'yellowgreen', 'sienna', 'plum', 'teal']
 
+# Control for joining cluster center to it's members (can be modified as input)
 scatter = False
-# COLORS = ['b', 'g', 'r', 'c', 'm', y', 'k', '']
-def save_fig(algo,fig):
+
+# Save figure in corrosponing folder for each algorithm with time stamp
+def save_fig(algo,fig,t):
     foldername = algo.split('.')[0]
     foldername += '/'
-    t = ctime()
+    # t = ctime()
     if not os.path.exists(foldername):
         os.makedirs(foldername)
     DPI = fig.get_dpi()
     DefaultSize = fig.get_size_inches()
     fig.set_size_inches( (DefaultSize[0]*2, DefaultSize[1]*2) )
-    # fig.set_size_inches( (3.448819, 2.614173) )
-
     fig.savefig(foldername + t + '.png',bbox_inches='tight')
 
+# Plotting clusters members and centers in 2-d
+# labels: labels for each data point in X
+# ax: axis to plot the data on
 def plot1(num_clusters,labels,X,centers,ax):
     # scatter = int(input("Want to join cluster center and it's members(0/1):"))
     for k, col in zip(range(num_clusters), COLORS):
